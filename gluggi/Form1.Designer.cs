@@ -118,6 +118,7 @@ namespace gluggi
             this.lblOption3.Size = new System.Drawing.Size(140, 29);
             this.lblOption3.TabIndex = 1;
             this.lblOption3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblOption3.Click += new System.EventHandler(this.LblOption3_Click);
             // 
             // groupBox5
             // 
@@ -138,6 +139,7 @@ namespace gluggi
             this.lblOption2.Size = new System.Drawing.Size(140, 29);
             this.lblOption2.TabIndex = 1;
             this.lblOption2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblOption2.Click += new System.EventHandler(this.LblOption2_Click);
             // 
             // groupBox6
             // 
@@ -158,6 +160,7 @@ namespace gluggi
             this.lblOption1.Size = new System.Drawing.Size(140, 29);
             this.lblOption1.TabIndex = 1;
             this.lblOption1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblOption1.Click += new System.EventHandler(this.LblOption1_Click);
             // 
             // groupBox3
             // 
@@ -178,6 +181,7 @@ namespace gluggi
             this.lblOption4.Size = new System.Drawing.Size(140, 29);
             this.lblOption4.TabIndex = 1;
             this.lblOption4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblOption4.Click += new System.EventHandler(this.LblOption4_Click);
             // 
             // picGluggiBadge
             // 
@@ -211,6 +215,8 @@ namespace gluggi
             // lblQuestion
             // 
             this.lblQuestion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblQuestion.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblQuestion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.lblQuestion.Location = new System.Drawing.Point(3, 23);
             this.lblQuestion.Name = "lblQuestion";
             this.lblQuestion.Size = new System.Drawing.Size(351, 58);
