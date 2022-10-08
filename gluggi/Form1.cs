@@ -13,7 +13,7 @@ namespace gluggi
     public partial class Form1 : Form
     {
         private int m_timerCount;
-        private int m_answer;
+        private float m_answer;
         private int m_score;
         public Form1()
         {
@@ -28,91 +28,86 @@ namespace gluggi
         }
 
 
-        //The idea is to initaially decide the answer and make a
-        //question string from it randomly. Then check whether the
-        //input is equal to the answer or not.
+        //
         private void CreateAnswerAndQuestion()
         {
-            m_answer = RandomNumBw1and1000();
-
+            
             int quesParts = 2; //RandomNumBw2and4();
 
             string question = string.Empty;
 
             if (quesParts == 2)
             {
-                question = QuestionWithTwoParts(m_answer);
+                question = QuestionWithTwoParts();
             }
             else if (quesParts == 3)
             {
-                question = QuestionWithThreeParts(m_answer);
+                question = QuestionWithThreeParts();
             }
             else if (quesParts == 4)
             {
-                question = QuestionWithFourParts(m_answer);
+                question = QuestionWithFourParts();
             }
 
             this.lblQuestion.Text = question;
+
+            DataTable calc = new DataTable();
+
+            m_answer = (float)Convert.ToDouble(calc.Compute(question, string.Empty));
+
             CreateOptions(m_answer);
         }
 
-        private string QuestionWithTwoParts(int answer)
+        private string QuestionWithTwoParts()
         {
-            int rand = RandomNumBw1and2();
-            int number = RandomNumBelow(answer);
             string quesString;
+
+            quesString = RandomNumBelow(1000).ToString() + RandomBinaryOperator() + RandomNumBelow(1000);
+            
+            return quesString;
+        }
+
+        private string QuestionWithThreeParts()
+        {
+
+
+            return "";
+        }
+
+        private string QuestionWithFourParts()
+        {
+            return "";
+        }
+
+        private string RandomBinaryOperator()
+        {
+            int rand = RandomNumBelow(4);
+            string oprtr = string.Empty;
 
             switch (rand)
             {
                 case 1:
-                    quesString  = (answer - number).ToString() + " + " + (answer - (answer - number)).ToString();
+                    oprtr = "+";
+                    break;
+                case 2:
+                    oprtr = "-"; 
+                    break;
+                case 3:
+                    oprtr = "*"; 
+                    break;
+                case 4:
+                    oprtr = "/"; 
                     break;
                 default:
-                    quesString = (answer + number).ToString() + " - " + ((answer + number)- answer).ToString();
                     break;
             }
-            
-
-            return quesString;
-        }
-
-        private string QuestionWithThreeParts(int answer)
-        {
-
-
-            return "";
-        }
-
-        private string QuestionWithFourParts(int answer)
-        {
-            return "";
-        }
-
-        private int RandomNumBw1and2()
-        {
-            Random randum = new Random();
-            int rand_num = randum.Next(1, 3);
-            return rand_num;
-        }
-
-        private int RandomNumBw2and4()
-        {
-            Random randum = new Random();
-            int rand_num = randum.Next(2, 4);
-            return rand_num;
-        }
-
-        private int RandomNumBw1and1000()
-        {
-            Random randum = new Random();
-            int rand_num = randum.Next(1, 1000);
-            return rand_num;
+            return oprtr;
         }
 
         private int RandomNumBelow(int num)
         {
             Random randum = new Random();
-            int rand_num = randum.Next(1, num - 2);
+            int rand_num = randum.Next(1, num + 1);
             return rand_num;
         }
 
@@ -193,11 +188,11 @@ namespace gluggi
             StartQuiz();
         }
 
-        private void CreateOptions(int answer)
+        private void CreateOptions(float answer)
         {
-            int random = RandomNumBw2and4();
-            int[] optionarray = new int[4];
-            optionarray[0] = answer - 10;
+            int random = RandomNumBelow(4);
+            float[] optionarray = new float[4];
+            optionarray[0] = answer - 10.0f;
             optionarray[1] = answer - random; 
             optionarray[2] = answer + random; 
             optionarray[3] = answer; 
