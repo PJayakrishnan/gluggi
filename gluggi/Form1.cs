@@ -32,7 +32,7 @@ namespace gluggi
         private void CreateAnswerAndQuestion()
         {
             
-            int quesParts = 2; //RandomNumBw2and4();
+            int quesParts = RandomNum2To4();
 
             string question = string.Empty;
 
@@ -49,13 +49,16 @@ namespace gluggi
                 question = QuestionWithFourParts();
             }
 
-            this.lblQuestion.Text = question;
+            if(question != string.Empty)
+            {
+                this.lblQuestion.Text = question;
 
-            DataTable calc = new DataTable();
+                DataTable calc = new DataTable();
 
-            m_answer = (float)Convert.ToDouble(calc.Compute(question, string.Empty));
+                m_answer = (float)Convert.ToDouble(calc.Compute(question, string.Empty));
 
-            CreateOptions(m_answer);
+                CreateOptions(m_answer);
+            }
         }
 
         private string QuestionWithTwoParts()
@@ -69,14 +72,20 @@ namespace gluggi
 
         private string QuestionWithThreeParts()
         {
+            string quesString;
 
+            quesString = RandomNumBelow(1000).ToString() + RandomBinaryOperator() + RandomNumBelow(1000) + RandomBinaryOperator() + RandomNumBelow(1000);
 
-            return "";
+            return quesString;
         }
 
         private string QuestionWithFourParts()
         {
-            return "";
+            string quesString;
+
+            quesString = RandomNumBelow(1000).ToString() + RandomBinaryOperator() + RandomNumBelow(1000) + RandomBinaryOperator() + RandomNumBelow(1000) + RandomBinaryOperator() + RandomNumBelow(1000);
+
+            return quesString;
         }
 
         private string RandomBinaryOperator()
@@ -111,6 +120,13 @@ namespace gluggi
             return rand_num;
         }
 
+        private int RandomNum2To4()
+        {
+            Random randum = new Random();
+            int rand_num = randum.Next(2, 5);
+            return rand_num;
+        }
+
         private void BtnStart_Click(object sender, EventArgs e)
         {
             StartQuiz();
@@ -118,6 +134,12 @@ namespace gluggi
 
         private void StartQuiz()
         {
+            this.lblQuestion.Text = string.Empty;
+            this.lblOption1.Text = string.Empty;
+            this.lblOption2.Text = string.Empty;
+            this.lblOption3.Text = string.Empty;
+            this.lblOption4.Text = string.Empty;
+
             this.btnStart.Enabled = false;
             timer = new System.Windows.Forms.Timer();
             timer.Tick += Timer_Tick;
@@ -137,6 +159,7 @@ namespace gluggi
                 timer.Stop();
                 m_timerCount = 20;
                 this.btnStart.Enabled = true;
+                StartQuiz();
             }
         }
 
